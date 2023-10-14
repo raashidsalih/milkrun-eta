@@ -10,7 +10,6 @@ git clone https://github.com/raashidsalih/milkrun-eta.git
 ```
 
 ##### Step 2: Configure
-- Download and extract [the available models from here](https://drive.google.com/file/d/1MrHUgbH4Bbd8Wkb6weYPDWQ4wci4fErG/view?usp=sharing) into the cloned directory. Keep in mind the models should be in a folder name ```models```.
 - Replace the content of ```input_source.csv``` with the data you want predictions for.
 - Change the model you want to use (if needed) by modifying ```model_path``` in ```main.py```. You can refer to available models in the section below.
 - If you'd like to use another location for the ```input_source.csv```, you can do so by changing ```model_path``` in ```main.py```
