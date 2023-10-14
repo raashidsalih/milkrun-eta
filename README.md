@@ -10,9 +10,10 @@ git clone https://github.com/raashidsalih/milkrun-eta.git
 ```
 
 ##### Step 2: Configure
-- Replace the content of ```input_source.csv``` with the data you want predictions for.
+- Replace the content of ```input_source.csv``` with the data you want predictions for. Pay attention to the columns since not all features are required by the model for the prediction.
 - Change the model you want to use (if needed) by modifying ```model_path``` in ```main.py```. You can refer to available models in the section below.
-- If you'd like to use another location for the ```input_source.csv```, you can do so by changing ```model_path``` in ```main.py```
+- If you'd like to use another location for the ```input_source.csv```, you can do so by changing ```model_path``` in ```main.py```.
+- You can do the same for output by modifying ```output_path``` in ```main.py```.
 
 ##### Step 3: Define Python Virtual Environment [Optional]
 I suggest running the program in a Python venv for stability and reproducibility. Although optional, it is highly recommended to avoid potential dependency related issues. Navigate to the cloned directory and create a Python virtual environment using the following command *[Windows]:*
@@ -36,6 +37,6 @@ pip install -r requirements.txt
 ```
 
 ##### Step 5: Ready To Go
-All the requirements have been satisfied, and you are now ready to use the program. Just run ```main.py``` from a CLI or using an IDE of your choosing. The results should be present in ```results.csv```.
+All the requirements have been satisfied, and you are now ready to use the program. Just run ```main.py``` from a CLI or using an IDE of your choosing. The results should be present as ```output.csv```.
 
 
