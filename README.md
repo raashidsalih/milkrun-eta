@@ -11,7 +11,7 @@ git clone https://github.com/raashidsalih/milkrun-eta.git
 
 ##### Step 2: Configure
 - Replace the content of ```input_source.csv``` with the data you want predictions for. Pay attention to the columns since not all features are required by the model for the prediction.
-- Change the model you want to use (if needed) by modifying ```model_path``` in ```main.py```. You can refer to available models in the section below.
+- Change the model you want to use (if needed) by modifying ```model_path``` in ```main.py```. You can refer to available models in the section below. Ensure that you include the extension of the model (if it exists).
 - If you'd like to use another location for the ```input_source.csv```, you can do so by changing ```model_path``` in ```main.py```.
 - You can do the same for output by modifying ```output_path``` in ```main.py```.
 
@@ -56,9 +56,26 @@ All the requirements have been satisfied, and you are now ready to use the progr
 |   **cb_out**   |                CatBoost model with Outliers removed               |  6825637 | 2329.512 | 2612.592 |
 | **cb_fe_out**  | CatBoost model with Feature Engineering and with Outliers removed | 7177033  | 2396.327 | 2678.999 |
 
- - When sorted by MAE and RMSE, it is clear that XGBoost clearly leads the pack in terms of performance.
- - XGBoost is the de facto standard when it comes to tabular data, and is therefore the first choice when it comes to model selection.
-	 - However, LightGBM is faster and more efficient than XGBoost, and this quality can be brought into consideration when moving the model into production is concerned.
-	 - Likewise, CatBoost is more robust because it can handle features with high cardinality, and can also handle missing values natively.
+ - When sorted by MAE and RMSE, it is clear that `XGBoost` clearly leads the pack in terms of performance.
+ - `XGBoost` is the de facto standard when it comes to tabular data, and is therefore the first choice when it comes to model selection.
+	 - However, `LightGBM` is faster and more efficient than `XGBoost`, and this quality can be brought into consideration when moving the model into production is concerned.
+	 - Likewise, `CatBoost` is more robust because it can handle features with high cardinality, and can also handle missing values natively.
 	 - Regardless, estimation performance is the most significant factor here, and we'll need to have data at much larger scales for these aspects to manifest.
 - Hyperparameter tuning must be considered for even better performance.
+- Subpopulation Analysis can be performed to better understand where exactly the model falls short.
+
+## Alternative Modeling Approaches
+There were a few methods that while interesting, could not be attempted due to time constraints. The commonality between them is how they attempt to group the multiple drops that constitute a trip by sequence. However, I believe the source data is not vast enough (by depth or breadth) that would make these techniques viable.
+1. **Multiple Instance Learning**: A weakly supervised learning approach where multiple instances in the training data is grouped into "bags" (in our case trips).
+2. **RNN**: Stands for *Recurrent Neural Networks*. The unique architecture makes it such that it can remember sequences, and can derive patterns based on it. RNNs have been observed being used to solve the milk run problem specifically in my literature review.
+3. **LSTM**: Stands for *Long Short-Term Memory (LSTM) Networks* and is a more sophisticated offshoot of RNNs. They can "remember" things for longer, at the cost of computational parsimoniousness and potential overfitting.
+
+## Alternative Data Approaches
+There are external data source that can be used to augment the available data to make it more conducive in achieving the objective. It would also warrant more complex model architectures being employed. These potential sources are ordered based on (admittedly perceived) influence of the target.
+
+1. **Route Information:** The best candidate would be route information which would understandably have the greatest impact when it comes to determining ETA. One can comfortably outsource this work to something like Google Maps API for accurate results.
+2. **Weather:** Beyond route information, weather conditions could have an impact with regards to how easy it is to navigate certain routes, and overheads incurred during delivery and pickup.
+3. **Events:** Similarly, routes can be affected (positively or otherwise) during certain events and public holidays.
+4. **Driver:** Information pertaining to the driver including his years of experience and familiarity with the location and tasks can be useful, but it is not really tenable.
+5. **Vehicle:** Likewise, data on the vehicle being used could have an effect on the ETA, but relative to the others is not very deterministic in that regard.
+6. **Real Time Information:** Finally, real time information on the vehicle and route sourced from sensor data would be the greatest tool one can use for the most up to date estimates. However, the infrastructure and maintenance necessary does not make it straightforward.
