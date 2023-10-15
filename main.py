@@ -48,7 +48,6 @@ def main():
 
     preds = model.predict(df[cols])
     df["Predicted_ETA"] = preds
-    print(df["Predicted_ETA"])
     df.to_csv(output_path)
 
 if __name__ == "__main__":
