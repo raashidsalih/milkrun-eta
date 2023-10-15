@@ -9,9 +9,11 @@ def main():
     model_path = "models/model_cb_fe"
     output_path = "output.csv"
 
+    print("Reading Data...")
     df = pd.read_csv(input_path, sep = ",")
 
     #transform
+    print("Transforming Data...")
     df = df.dropna(how='any',axis=0)
     df = df[df["drop_sequence"] > 0]
     df = df[df["distance_calculated"] > 0]
@@ -35,6 +37,7 @@ def main():
     df['origin_warehouse_code'] = le.fit_transform(df['origin_warehouse_code'])
     df['destination_warehouse_code'] = le.fit_transform(df['destination_warehouse_code'])
 
+    print("Setting up Model..")
     if "xgb" in model_path:
         model = xgb.XGBRegressor(objective='reg:squaredlogerror')
         model.load_model(model_path)
@@ -46,9 +49,13 @@ def main():
         model = cb.CatBoostRegressor()
         model.load_model(model_path)
 
+    print("Making Predictions...")
     preds = model.predict(df[cols])
     df["Predicted_ETA"] = preds
+
+    print("Writing Results...")
     df.to_csv(output_path)
 
+    print("Operation Completed Successfully!")
 if __name__ == "__main__":
   main()
