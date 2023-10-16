@@ -2,6 +2,8 @@
 ## Overview
 Regression based models to estimate arrival time for milk runs. Milk run logistics are a type of delivery system where shipments are delivered to multiple locations in one trip.
 
+You can find the code and results of Exploratory Data Analysis and Model Training [under the Notebooks folder](https://github.com/raashidsalih/milkrun-eta/tree/main/Notebooks). They have also been transformed into HTML pages using ```pretty-jupyter``` for readability. 
+
 ## Installation Instructions
 ##### Step 1: Clone
 Clone this git repository using:
